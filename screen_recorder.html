@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>screen recorder</title>
+</head>
+<body>
+    <button id="rec_btn">record</button>
+    <button id="stop_btn">stop</button>
+    <a id="download_link">download</a>
+    <br/><br/>
+    <video controls id="video_player" src=""></video>
+</body>
+
+<script>
+  var record_btn = document.getElementById('rec_btn');
+  var stop_btn = document.getElementById('stop_btn');
+  var download_link = document.getElementById('download_link');
+  var video_player = document.getElementById('video_player');
+
+  record_btn.addEventListener('click', function() {
+
+    let options = {
+        video: {  cursor: "always"  },
+        audio: true
+    }
+    
+    navigator.mediaDevices.getDisplayMedia(options).then(function(stream){
+
+
+        let track = stream.getVideoTracks()[0];
+
+
+        let constraints = {
+            // width: {min: 640, ideal: 1280},
+            // height: {min: 480, ideal: 720},
+            // advanced: [
+            //     {width: 1280, height: 720},
+            //     {aspectRatio: 1.333}
+            // ]
+        };
+        track.applyConstraints(constraints).then(function(){
+
+            let media_data = []
+            let media_recorder
+
+            media_recorder = new MediaRecorder(stream, {mimeType: 'video/webm'});
+
+            media_recorder.addEventListener('dataavailable', function(encoded_data) {
+                if (encoded_data.data.size > 0) {
+                    media_data.push(encoded_data.data);
+                }
+            });
+
+            media_recorder.addEventListener('stop', function() {
+                let url = URL.createObjectURL(new Blob(media_data));
+                download_link.href = url
+                video_player.src = url
+                download_link.download = 'file.webm';
+            });
+
+            stop_btn.addEventListener('click', function() {
+                media_recorder.stop();
+            });
+
+            media_recorder.start();
+        })
+    });
+  })
+
+</script>
+
+</html>

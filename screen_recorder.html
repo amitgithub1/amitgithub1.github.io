@@ -45,7 +45,7 @@
             let media_data = []
             let media_recorder
 
-            media_recorder = new MediaRecorder(stream, {mimeType: 'video/webm'});
+            media_recorder = new MediaRecorder(stream, {});//{mimeType: 'video/webm'}
 
             media_recorder.addEventListener('dataavailable', function(encoded_data) {
                 if (encoded_data.data.size > 0) {

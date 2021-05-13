@@ -6,22 +6,22 @@
     <title>screen recorder</title>
 </head>
 <body>
-    <div>
+    <div style=""display: flex; flex-direction: row>
         <div>
-        <button id="rec_btn">record</button>
-        <button id="stop_btn">stop</button>
-        <a id="download_link">download</a>
-        <br/><br/>
+            <button id="rec_btn">record</button>
+            <button id="stop_btn">stop</button>
+            <a id="download_link">download</a>
+            <br/><br/>
         </div>
         <div>
-              <label for="container">Video Container</label>
+              <div>Video Container</div>
               <select id="container" name="container" size="3">
                 <option value="webm">webm</option>
                 <option value="mp4">webm</option>
               </select>
         </div>
         <div>
-              <label for="vcodec">Video Codec</label>
+              <div>Video Codec</div>
               <select id="vcodec" name="vcodec" size="3">
                 <option value="vp9">vp9</option>
                 <option value="h264">h264</option>

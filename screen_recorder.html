@@ -70,7 +70,7 @@
             let container = document.getElementById("container").value;
             let vcodec = document.getElementById("vcodec").value;
             let mime_type = `video/${container};codecs=${vcodec},opus`;
-            console.log(mime_type)
+            console.log("mime_type ", mime_type)
             media_recorder = new MediaRecorder(stream, {mimeType: mime_type });//{mimeType: 'video/webm'}
 
             media_recorder.addEventListener('dataavailable', function(encoded_data) {
